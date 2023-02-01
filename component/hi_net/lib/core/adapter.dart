@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bilibili_test/http/request/base_request.dart';
+import '../request/base_request.dart';
 
 abstract class NetAdapter {
   Future<NetResponse> send<T>(BaseRequest request);

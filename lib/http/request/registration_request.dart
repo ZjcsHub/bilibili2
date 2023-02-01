@@ -1,4 +1,4 @@
-import 'package:bilibili_test/http/request/base_request.dart';
+import 'package:hi_net/request/base_request.dart';
 
 class RegistrationRequest extends BaseRequest {
   @override

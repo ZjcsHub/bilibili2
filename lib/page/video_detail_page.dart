@@ -8,7 +8,10 @@ import 'package:bilibili_test/widget/navigation_bar.dart';
 import 'package:bilibili_test/widget/video_header.dart';
 import 'package:bilibili_test/widget/video_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay/flutter_overlay.dart';
 import 'package:get/get.dart';
+import 'package:hi_barrage/barrage_input.dart';
+import 'package:hi_barrage/hi_barrage.dart';
 
 import '../models/video_detail_model.dart';
 import '../models/video_play_model.dart';
@@ -31,6 +34,8 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   late TabController _controller;
   List tabs = ["简介", "评论288"];
+
+  var _barageKey = GlobalKey<HiBarrageState>();
 
   @override
   void initState() {
@@ -109,8 +114,10 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   }
 
   _videoView() {
+    bool autoPlay = false;
     if (_playModel != null) {
       return VideoView(
+        autoPlay: autoPlay,
         url: _playModel!.data?.durl?.first.url ?? "",
         cover: _videoData?.pic ?? "",
         overlayUi: videoAppBar(callback: () {
@@ -119,6 +126,19 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           theme.setToDafault();
           Get.back();
         }),
+        barrageUi: HiBarrage(
+          key: _barageKey,
+          vid: _videoData?.bvid ?? "",
+          autoPlay: autoPlay,
+        ),
+        playCallBack: () {
+          print("playCallBack");
+          _barageKey.currentState?.play();
+        },
+        pauseCallBack: () {
+          print("pauseCallBack");
+          _barageKey.currentState?.pause();
+        },
       );
     } else {
       return Container(
@@ -134,16 +154,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _tabbar(),
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.live_tv,
-                color: Colors.grey,
-              ),
-            )
-          ],
+          children: [_tabbar(), _buildBarrageBtn()],
         ),
       ),
     );
@@ -164,6 +175,28 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           .toList(),
       controller: _controller,
       fontSize: 18,
+    );
+  }
+
+  _buildBarrageBtn() {
+    return InkWell(
+      child: Padding(
+        padding: EdgeInsets.only(right: 20),
+        child: Icon(
+          Icons.live_tv,
+          color: Colors.grey,
+        ),
+      ),
+      onTap: () {
+        HiOverlay.show(context, child: BarrageInput(
+          onTabClose: (value) {
+            print("-------value:$value");
+            if (value != null) {
+              _barageKey.currentState?.send(value);
+            }
+          },
+        ));
+      },
     );
   }
 

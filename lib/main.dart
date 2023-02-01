@@ -1,5 +1,5 @@
+import 'package:bilibili_test/main_defend.dart';
 import 'package:bilibili_test/routers/routers.dart';
-import 'package:bilibili_test/util/screen_adaper.dart';
 import 'package:bilibili_test/util/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'db/hi_cache.dart';
 
 void main() {
-  runApp(const MyApp());
+  HiDefend().run(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -21,24 +21,27 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     CustomTheme theme = Get.put(CustomTheme.getInstance());
-    ScreenAdaper.getInstance().init(context);
     return FutureBuilder(
       builder: (BuildContext context, AsyncSnapshot<HiCache> snapshot) {
-        return GetMaterialApp(
-          themeMode: theme.getThemeMode(),
-          theme: theme.white(),
-          darkTheme: theme.black(),
-          initialRoute: init_route(),
-          getPages: ROUTER,
-          enableLog: true,
-          routingCallback: (route) {
-            print(
-                "currentRoute:${route?.current},routeCurrent:${Get.currentRoute},previous:${route?.previous},routePrevious:${Get.previousRoute},removed:${route?.removed}");
-            if (route?.current == video_detail) {
-              theme.setToBlack();
-            }
-          },
-        );
+        if (snapshot.connectionState == ConnectionState.done) {
+          theme.getThemeMode(isSet: true);
+          return GetMaterialApp(
+            themeMode: theme.getThemeMode(),
+            theme: theme.white(),
+            darkTheme: theme.black(),
+            initialRoute: init_route(),
+            getPages: ROUTER,
+            enableLog: true,
+            routingCallback: (route) {
+              print(
+                  "currentRoute:${route?.current},routeCurrent:${Get.currentRoute},previous:${route?.previous},routePrevious:${Get.previousRoute},removed:${route?.removed}");
+              if (route?.current == video_detail) {
+                theme.setToBlack();
+              }
+            },
+          );
+        }
+        return Container();
       },
       future: HiCache.preInit(),
     );

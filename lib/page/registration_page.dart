@@ -3,8 +3,8 @@ import 'package:bilibili_test/widget/login_effect.dart';
 import 'package:bilibili_test/widget/login_input.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hi_net/core/error.dart';
 
-import '../http/core/error.dart';
 import '../http/dao/login_dao.dart';
 import '../util/string_util.dart';
 import '../util/toast.dart';

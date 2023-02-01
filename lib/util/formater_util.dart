@@ -11,6 +11,7 @@ String countFormat(int count) {
 
 /// 将时间转换成秒换位为分钟：秒
 String durationTransForm(int second) {
+  print("second : $second");
   int m = (second / 60).truncate();
   int s = second - m * 60;
   if (s < 10) {

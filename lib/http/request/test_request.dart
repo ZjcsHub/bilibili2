@@ -1,4 +1,4 @@
-import 'base_request.dart';
+import 'package:hi_net/request/base_request.dart';
 
 class TestRequest extends BaseRequest {
   @override

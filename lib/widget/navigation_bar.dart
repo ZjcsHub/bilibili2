@@ -28,6 +28,7 @@ class CustomNavigationBar extends StatelessWidget {
     var setColor = color ?? Colors.black;
     if (color == null || statusStyle == null) {
       setColor = Color(theme.appbarBackColor.value);
+      print("appbarBackColor : ${theme.appbarBackColor.value}");
     }
     // 状态栏高度
     var top = MediaQuery.of(context).padding.top;

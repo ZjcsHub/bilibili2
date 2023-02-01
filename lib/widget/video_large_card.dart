@@ -12,6 +12,7 @@ class VideoLargeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("current videodata:${videoData?.duration}");
     return GestureDetector(
       onTap: () {
         if (this.callback != null) {
@@ -47,7 +48,7 @@ class VideoLargeCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(2)),
                 alignment: Alignment.centerRight,
                 child: Text(
-                  durationTransForm(int.parse(videoData?.duration ?? "0")),
+                  (videoData?.duration ?? ""),
                   style: TextStyle(color: Colors.white),
                 ),
               ))

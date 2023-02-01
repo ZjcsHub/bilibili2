@@ -182,6 +182,7 @@ class _HomePageState extends HiState<HomePage>
           GestureDetector(
             onTap: () {
               print("点击explore_outlined");
+              _catchError();
             },
             child: Icon(Icons.explore_outlined),
           ),
@@ -234,13 +235,21 @@ class _HomePageState extends HiState<HomePage>
   }
 
   _catchError() {
-    runZonedGuarded(() {
-      throw StateError('runZonedGuarded:This is a dart exception');
-    }, (e, s) => print(e));
-
-    runZonedGuarded(() {
-      Future.delayed(Duration(seconds: 1)).then((value) => throw StateError(
-          "runZonedGuarded:This is a dart exception in future"));
-    }, (e, s) => print(e));
+    // 使用try catch 捕获异常
+    // try {
+    //   throw StateError("this is a dart exception");
+    // } catch (e) {
+    //   print("e:$e");
+    // }
+    //
+    // runZonedGuarded(() {
+    //   throw StateError('runZonedGuarded:This is a dart exception');
+    // }, (e, s) => print(e));
+    //
+    // runZonedGuarded(() {
+    //   Future.delayed(Duration(seconds: 1)).then((value) => throw StateError(
+    //       "runZonedGuarded:This is a dart exception in future"));
+    // }, (e, s) => print(e));
+    throw StateError("主动抛出异常");
   }
 }

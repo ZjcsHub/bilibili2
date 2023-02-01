@@ -1,7 +1,8 @@
-import 'package:bilibili_test/http/core/adapter.dart';
-import 'package:bilibili_test/http/core/error.dart';
-import 'package:bilibili_test/http/request/base_request.dart';
 import 'package:dio/dio.dart';
+
+import '../request/base_request.dart';
+import 'adapter.dart';
+import 'error.dart';
 
 class DioAdapter extends NetAdapter {
   @override

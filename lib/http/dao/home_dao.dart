@@ -1,6 +1,6 @@
-import 'package:bilibili_test/http/core/net.dart';
 import 'package:bilibili_test/http/request/home_request.dart';
 import 'package:bilibili_test/models/video_data_model.dart';
+import 'package:hi_net/hi_net.dart';
 
 import '../../models/video_detail_model.dart';
 import '../../models/video_play_model.dart';
@@ -39,5 +39,13 @@ class HomeDao {
     var model = VideoPlayModel.fromJson(result);
 
     return model;
+  }
+
+  static getRankingData() async {
+    var request = HomeRequest();
+    request.add("rid", 3);
+    var result = await Net.getInstance().fire(request);
+    var videoModel = VideoDataModel.fromJson(result);
+    return videoModel;
   }
 }

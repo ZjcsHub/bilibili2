@@ -1,8 +1,12 @@
-import 'package:bilibili_test/http/core/adapter.dart';
-import 'package:bilibili_test/http/core/dio_adapter.dart';
-import 'package:bilibili_test/http/core/error.dart';
-import 'package:bilibili_test/http/request/base_request.dart';
+library hi_net;
 
+import 'package:hi_net/request/base_request.dart';
+
+import 'core/adapter.dart';
+import 'core/dio_adapter.dart';
+import 'core/error.dart';
+
+/// A Calculator.
 class Net {
   Net._();
   static Net? _instance;

@@ -160,7 +160,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
       ],
       itemCount: widget.bannerLists.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: 1.25),
+          crossAxisCount: 2, childAspectRatio: 1.2),
       itemBuilder: (BuildContext context, int index) {
         return VideoCard(
           videoData: widget.bannerLists[index],

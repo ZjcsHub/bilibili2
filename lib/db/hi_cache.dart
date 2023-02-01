@@ -1,4 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HiCache {
@@ -7,16 +6,19 @@ class HiCache {
   static HiCache? _instance;
   static HiCache getInstance() {
     if (_instance == null) {
+      print("hicache init");
       _instance = HiCache();
+      SharedPreferences.getInstance()
+          .then((value) => _instance?._preferences = value);
     }
     return _instance!;
   }
 
   static Future<HiCache> preInit() async {
     if (_instance == null) {
+      print("hicache preInit");
       _instance = HiCache();
       _instance!._preferences = await SharedPreferences.getInstance();
-      await ScreenUtil.ensureScreenSize();
     }
     return _instance!;
   }
@@ -36,8 +38,11 @@ class HiCache {
 
   getInteger(String key, [int defaultValue = 0]) => _preferences?.getInt(key);
 
-  getString(String key, [String defaultValue = '']) =>
-      _preferences?.getString(key);
+  getString(String key, [String defaultValue = '']) {
+    print("_preferences ： $_preferences");
+    return _preferences?.getString(key);
+  }
+
   getBool(String key, [bool defaultValue = false]) =>
       _preferences?.getBool(key);
   getDouble(String key, [double defaultValue = 0.0]) =>

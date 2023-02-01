@@ -15,7 +15,6 @@ class CustomTheme extends GetxController {
   static CustomTheme getInstance() {
     if (_instance == null) {
       _instance = CustomTheme();
-      _instance?.getThemeMode(isSet: true);
     }
     return _instance!;
   }
@@ -27,6 +26,7 @@ class CustomTheme extends GetxController {
 
   bool isDarkMode() {
     var isDark = false;
+    print("_themeMode : $_themeMode");
     if (_themeMode == ThemeMode.system) {
       // 系统darkmode
       var systemBrightness =
@@ -41,12 +41,13 @@ class CustomTheme extends GetxController {
 
   ThemeMode getThemeMode({bool isSet = false}) {
     String? theme = HiCache.getInstance().getString("themeMode");
+    print("getThemeMode : $theme");
     switch (theme) {
       case 'black':
         _themeMode = ThemeMode.dark;
         if (isSet) {
           appbarBackColor.value = 0xff18191a;
-          stateStyle.value = StatusStyle.Dark;
+          stateStyle.value = StatusStyle.Light;
           setStatusBar(Colors.white, stateStyle.value);
         }
         break;
@@ -55,7 +56,7 @@ class CustomTheme extends GetxController {
         _themeMode = ThemeMode.light;
         if (isSet) {
           appbarBackColor.value = 0xFFFFFFFF;
-          stateStyle.value = StatusStyle.Light;
+          stateStyle.value = StatusStyle.Dark;
           setStatusBar(Colors.black, stateStyle.value);
         }
         break;
@@ -79,6 +80,24 @@ class CustomTheme extends GetxController {
     return _themeMode;
   }
 
+  CustomThemeMode getCustomThemeMode() {
+    CustomThemeMode customThemeMode = CustomThemeMode.system;
+    String? theme = HiCache.getInstance().getString("themeMode");
+    print("theme-----：$theme");
+    switch (theme) {
+      case 'black':
+        customThemeMode = CustomThemeMode.black;
+        break;
+      case 'white':
+        customThemeMode = CustomThemeMode.white;
+        break;
+      case 'system':
+        customThemeMode = CustomThemeMode.system;
+        break;
+    }
+    return customThemeMode;
+  }
+
   setTheme(CustomThemeMode themeMode) {
     switch (themeMode) {
       case CustomThemeMode.white:
@@ -94,8 +113,7 @@ class CustomTheme extends GetxController {
 
         break;
     }
-    Get.changeThemeMode(getThemeMode());
-    getThemeMode(isSet: true);
+    Get.changeThemeMode(getThemeMode(isSet: true));
   }
 
   void darModeChange() {
